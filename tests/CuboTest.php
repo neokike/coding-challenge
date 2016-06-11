@@ -23,6 +23,30 @@ class CuboTest extends TestCase
     }
 
     /**
+     * Prueba la validacion del tamaño del cubo n<=100
+     * 
+     * @expectedException App\Exceptions\CubeException
+     */
+    public function testInicializarConIndicePorEncimaDelPermitido()
+    {
+        $cubo = new Cubo();
+        $n = 200;
+        $cubo->inicializar($n);
+    }
+
+    /**
+     * Prueba la validacion del tamaño del cubo n>=1
+     *
+     * @expectedException App\Exceptions\CubeException
+     */
+    public function testInicializarConIndicePorDebajoDelPermitido()
+    {
+        $cubo = new Cubo();
+        $n = -1;
+        $cubo->inicializar($n);
+    }
+
+    /**
      * Prueba el proceso de update.
      *
      * @return void
@@ -34,6 +58,19 @@ class CuboTest extends TestCase
         $cubo->inicializar($n);
         $cubo->update(1, 1, 1, 10);
         $this->assertEquals(10, $cubo->getCubo()[1][1][1]);
+    }
+
+    /**
+     * Prueba la existencia de la coordenada en el proceso de update
+     *
+     * @expectedException App\Exceptions\CubeException
+     */
+    public function testUpdateEnIndicesNoExistentes()
+    {
+        $cubo = new Cubo();
+        $n = 10;
+        $cubo->inicializar($n);
+        $cubo->update(20, 20, 20, 10);
     }
 
     /**
