@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\CuboController;
+
+Route::get('/', ['as' => 'home', 'uses' => 'CuboController@index']);
