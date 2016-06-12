@@ -1,27 +1,34 @@
-# Laravel PHP Framework
+#Cube Summation
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Para la implementación de este Coding Challenge se uso el framework de ```PHP``` ```Laravel``` 
+para el backend y ``angularJs``` para el frontend, A continuación se describira brevemente cada uno de los
+componentes que componen la Aplicación:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+##Backend
+###Capas de la Aplicación
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+1. Capa de rutas: se definen las distintas rutas o endpoints de la aplicación
+2. Capa de Controladores: Cada request a las rutas registradas es servida por un metodo especifico dentro del controlador,
+los controladores nos sirven para unir los distintos modulos que hacen vida en la aplicación (Vista, Logica de negocio, etc)
+3. Vistas: esta capa es la responsable de renderizar las vistas o documentos ```HTML``` de la aplicación, para ello se uso ```Blade``` como motor
+para la construccion de la vista.
+4. Capa de Aplicación: la logica de negocio se abstrajo a clases especifica cada una con sus responsabilidades bien definidas.
+    1. Clase Cubo: representa el punto de entrada para llevar a cabo todas las operaciones en el cubo, esta clase tiene como responsabilidad
+  la inicialización de la matriz de cubo, ejecucion de las operaciones y guarda todos los datos relevantes de la prueba (matriz, sumas). 
+    2. Operaciones: existen dos operaciones que se pueden realizar, Query y Update cada una de estas operaciones se abstrajo a su clase especifica
+  ambas suscrita a la interfaz de CuboOperacionInterface lo cual nos permite establecer una forma unica para ejecutar una operacion en el cubo,
+  esto nos da como ventaja la posibilidad de agregar nuevas operaciones sin estar modificando el codigo de la clase principal (Cubo) respetando el 
+  principio de Open/Close, ademas que le otorgamos una responsabilidad unica a cada clase.
 
-## Official Documentation
+##Frontend
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Para el frontend se utilizo ```AngularJs``` como framework de javascript para organizar el código y hacer la aplicación
+dinamica, tambien se uso ```Bootstrap``` como framework Css para los estilos, por otro lado se uso ```Gulp+Elixir``` como task runner para concantenar los 
+archivos de ```Javascript``` y para compilar los archivos de estilos ```Sass```
 
-## Contributing
+La aplicacion se estructuró en tres archivos principales App.js que sirve para instanciar el modulo y configuración global de la aplicación,
+AppCtrl.js el cual es el controlador principal de la aplicación donde se definen las interacciones de la vista y AppService.js donde se realiza la llamada a la API.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+     
+  
+  
