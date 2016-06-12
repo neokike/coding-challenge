@@ -25,15 +25,14 @@ class CuboController extends Controller
      */
     public function ejecutar(Request $request, Cubo $cubo)
     {
-        $n = $request->get('size');
         $pruebas = $request->get('pruebas');
         $sumas = collect();
 
         foreach ($pruebas as $index => $prueba) {
             try {
-                $cubo->inicializar($n);
+                $cubo->inicializar($prueba['size']);
             } catch (CubeException $e) {
-                return response()->json(['error' => $e->getMessage()], 400);
+                return response()->json(['error' => 'Error en Prueba ' . ($index + 1) . ': ' . $e->getMessage()], 400);
             }
             foreach ($prueba['operaciones'] as $indexOp => $operacion) {
                 try {

@@ -2,9 +2,9 @@ app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService)
 
     var vm = this;
     vm.form = {
-        size: 1,
         pruebas: []
     };
+    vm.ejecutando = false;
 
     vm.operaciones = [
         {
@@ -20,6 +20,7 @@ app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService)
 
         if (vm.form.pruebas.length <= 50) {
             vm.form.pruebas.push({
+                size: 1,
                 operaciones: [{
                     operacion: 'Update',
                     params: {
@@ -86,12 +87,16 @@ app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService)
         if (!vm.form.pruebas.length) {
             toastr.error('Debe agregar por lo menos una prueba');
         } else {
+            vm.ejecutando = true;
+            vm.resultados = [];
             appService.ejecutarPruebas(vm.form).then(function (resultados) {
                 vm.resultados = resultados.data.resultados;
             }).catch(function (error) {
                 if (error.status == 400) {
                     toastr.error(error.data.error);
                 }
+            }).finally(function () {
+                vm.ejecutando = false;
             })
         }
     }

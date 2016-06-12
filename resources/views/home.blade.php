@@ -13,13 +13,28 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
+            <div class="well">
+                <p><strong>Instrucciones:</strong></p>
+                <ul>
+                    <li>Agregue una o más suites de prueba (No deben ser mas de 50)</li>
+                    <li>Establezca un tamaño del cubo para la prueba (n<=1000)</li>
+                    <li>Agregue una o más operaciones (no debe sobrepasar las 1000 por prueba)</li>
+                    <li>Restricciones:
+                        <ul>
+                            <li>1 <= x1 <= x2 <= N</li>
+                            <li>1 <= y1 <= y2 <= N</li>
+                            <li>1 <= z1 <= z2 <= N</li>
+                            <li>1 <= x,y,z <= N</li>
+                            <li>-10^9 <= Valor <= 10^9</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
             <form class="form" name="cubeForm">
-                <div class="form-group">
-                    <label for="size" class="control-label">Tamaño del Cubo</label>
-                    <input type="number" ng-model="vm.form.size"
-                           validator="required,number,mayorIgualA=1,menorIgualA=100"
-                           name="size" class="form-control">
-                </div>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h3 ng-if="!vm.form.pruebas.length">Debe agregar una prueba</h3>
@@ -36,6 +51,12 @@
                                     </div>
                                 </div>
                                 <div class="panel-body">
+                                    <div class="form-group">
+                                        <label for="size" class="control-label">Tamaño del Cubo</label>
+                                        <input type="number" ng-model="prueba.size"
+                                               validator="required,number,mayorIgualA=1,menorIgualA=100"
+                                               name="size" class="form-control">
+                                    </div>
                                     <div class="row" ng-repeat="operacion in prueba.operaciones track by $index">
                                         <div class="col-xs-10 col-md-3">
                                             <label for="">Operación @{{ $index + 1 }}</label>
@@ -150,7 +171,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-block btn-success" validation-submit="cubeForm" ng-click="vm.ejecutar()">
+                <button class="btn btn-block btn-success" validation-submit="cubeForm" ng-click="vm.ejecutar()" ng-disabled="vm.ejecutando">
                     Ejecutar
                 </button>
             </form>
@@ -167,6 +188,7 @@
                 <div class="well">
                     <div ng-repeat="resultado in vm.resultados track by $index">
                         <p><strong> Resultados Prueba @{{ $index + 1 }}</strong></p>
+                        <p ng-if="!resultado.length">No hay resultados que mostrar</p>
                         <p ng-repeat="suma in resultado track by $index">
                             @{{ suma }}
                         </p>
