@@ -20,6 +20,7 @@ elixir(function (mix) {
         '../../../node_modules/angular-toastr/dist/angular-toastr.tpls.min.js',
         'app.js',
         'appCtrl.js',
+        'appService.js'
 
     ]);
 });

@@ -1,9 +1,6 @@
 <?php
 
-use App\Cubo;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Cubo\Cubo;
 
 class CuboTest extends TestCase
 {
@@ -24,7 +21,7 @@ class CuboTest extends TestCase
 
     /**
      * Prueba la validacion del tamaño del cubo n<=100
-     * 
+     *
      * @expectedException App\Exceptions\CubeException
      */
     public function testInicializarConIndicePorEncimaDelPermitido()
@@ -56,7 +53,7 @@ class CuboTest extends TestCase
         $cubo = new Cubo();
         $n = 10;
         $cubo->inicializar($n);
-        $cubo->update(1, 1, 1, 10);
+        $cubo->ejecutar('Update', ['x' => 1, 'y' => 1, 'z' => 1, 'valor' => 10]);
         $this->assertEquals(10, $cubo->getCubo()[1][1][1]);
     }
 
@@ -70,7 +67,7 @@ class CuboTest extends TestCase
         $cubo = new Cubo();
         $n = 10;
         $cubo->inicializar($n);
-        $cubo->update(20, 20, 20, 10);
+        $cubo->ejecutar('Update', ['x' => 20, 'y' => 20, 'z' => 20, 'valor' => 10]);
     }
 
     /**
@@ -83,12 +80,14 @@ class CuboTest extends TestCase
         $cubo = new Cubo();
         $n = 10;
         $cubo->inicializar($n);
-        $cubo->update(1, 1, 1, 10);
-        $sum = $cubo->query(1, 1, 1, 2, 2, 2);
-        $this->assertEquals(10, $sum);
+        $cubo->ejecutar('Update', ['x' => 1, 'y' => 1, 'z' => 1, 'valor' => 10]);
+        $cubo->ejecutar('Query', ['x' => 1, 'y' => 1, 'z' => 1, 'x2' => 2, 'y2' => 2, 'z2' => 2]);
+        $this->assertEquals(10, $cubo->getSumas()[0]);
 
-        $sum = $cubo->query(2, 2, 2, 3, 3, 3);
-        $this->assertEquals(0, $sum);
+        $cubo->inicializar($n);
+        $cubo->ejecutar('Update', ['x' => 1, 'y' => 1, 'z' => 1, 'valor' => 10]);
+        $cubo->ejecutar('Query', ['x' => 2, 'y' => 2, 'z' => 2, 'x2' => 3, 'y2' => 3, 'z2' => 3]);
+        $this->assertEquals(0, $cubo->getSumas()[0]);
     }
 
 }

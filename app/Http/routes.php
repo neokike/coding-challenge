@@ -14,3 +14,4 @@
 use App\Http\Controllers\CuboController;
 
 Route::get('/', ['as' => 'home', 'uses' => 'CuboController@index']);
+Route::post('/ejecutar', ['as' => 'ejecutar', 'uses' => 'CuboController@ejecutar']);

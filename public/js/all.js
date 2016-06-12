@@ -352,11 +352,11 @@ app.config(['$validationProvider', function ($validationProvider) {
         });
 
 }]);
-app.controller('appCtrl', ['toastr', function (toastr) {
+app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService) {
 
     var vm = this;
     vm.form = {
-        size:1,
+        size: 1,
         pruebas: []
     };
 
@@ -428,6 +428,24 @@ app.controller('appCtrl', ['toastr', function (toastr) {
 
     vm.ejecutar = function () {
 
+        if (!vm.form.pruebas.length) {
+            toastr.error('Debe agregar por lo menos una prueba');
+        } else {
+            appService.ejecutarPruebas(vm.form).then(function (resultados) {
+
+            }).catch(function (error) {
+
+
+            })
+        }
+    }
+}]);
+app.factory('appService', ['$http', function ($http) {
+
+    return {
+        ejecutarPruebas: function (form) {
+            return $http.post('/ejecutar', form);
+        }
     }
 }]);
 //# sourceMappingURL=all.js.map
