@@ -23,9 +23,9 @@ app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService)
                 operaciones: [{
                     operacion: 'Update',
                     params: {
-                        x: 0,
-                        y: 0,
-                        z: 0,
+                        x: 1,
+                        y: 1,
+                        z: 1,
                         valor: 0
                     }
                 }]
@@ -41,9 +41,9 @@ app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService)
             prueba.operaciones.push({
                 operacion: 'Update',
                 params: {
-                    x: 0,
-                    y: 0,
-                    z: 0,
+                    x: 1,
+                    y: 1,
+                    z: 1,
                     valor: 0
                 }
             })
@@ -55,21 +55,30 @@ app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService)
     vm.cambioOperacion = function (operacion) {
         if (operacion.operacion == 'Update') {
             operacion.params = {
-                x: 0,
-                y: 0,
-                z: 0,
+                x: 1,
+                y: 1,
+                z: 1,
                 valor: 0
             }
         } else {
             operacion.params = {
-                x: 0,
-                y: 0,
-                z: 0,
-                x2: 0,
-                y2: 0,
-                z2: 0
+                x: 1,
+                y: 1,
+                z: 1,
+                x2: 1,
+                y2: 1,
+                z2: 1
             }
         }
+    };
+
+    vm.borrarPrueba = function (index) {
+        vm.form.pruebas.splice(index, 1);
+    };
+
+    vm.borrarOperacion = function (prueba, operacion) {
+        var index = prueba.operaciones.indexOf(operacion);
+        prueba.operaciones.splice(index, 1);
     };
 
     vm.ejecutar = function () {
@@ -78,10 +87,11 @@ app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService)
             toastr.error('Debe agregar por lo menos una prueba');
         } else {
             appService.ejecutarPruebas(vm.form).then(function (resultados) {
-
+                vm.resultados = resultados.data.resultados;
             }).catch(function (error) {
-
-
+                if (error.status == 400) {
+                    toastr.error(error.data.error);
+                }
             })
         }
     }

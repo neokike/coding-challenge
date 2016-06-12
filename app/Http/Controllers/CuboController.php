@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 
 use App\Cubo\Cubo;
+use App\Exceptions\CubeException;
 use Illuminate\Http\Request;
 
 class CuboController extends Controller
@@ -28,14 +29,22 @@ class CuboController extends Controller
         $pruebas = $request->get('pruebas');
         $sumas = collect();
 
-        foreach ($pruebas as $prueba) {
-            $cubo->inicializar($n);
-            foreach ($prueba['operaciones'] as $operacion) {
-                $cubo = $cubo->ejecutar($operacion['operacion'], $operacion['params']);
+        foreach ($pruebas as $index => $prueba) {
+            try {
+                $cubo->inicializar($n);
+            } catch (CubeException $e) {
+                return response()->json(['error' => $e->getMessage()], 400);
+            }
+            foreach ($prueba['operaciones'] as $indexOp => $operacion) {
+                try {
+                    $cubo = $cubo->ejecutar($operacion['operacion'], $operacion['params']);
+                } catch (CubeException $e) {
+                    return response()->json(['error' => 'Error en Prueba ' . ($index + 1) . ': Operacion ' . ($indexOp + 1) . ', ' . $e->getMessage()], 400);
+                }
             }
             $sumas->push($cubo->getSumas());
         }
-        return $sumas;
+        return response()->json(['resultados' => $sumas]);
     }
 
 }

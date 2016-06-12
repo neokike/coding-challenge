@@ -9,6 +9,7 @@ app.config(['$validationProvider', function ($validationProvider) {
             required: function (value) {
                 return value != null && value != undefined;
             },
+            number: /^-?\d+$/,
             menorIgualA: function (value, scope, element, attrs, param) {
                 return parseInt(value) <= parseInt(param);
             },

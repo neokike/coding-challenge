@@ -23,6 +23,7 @@ class CuboUpdate implements CuboOperacionInterface
     {
         $validacion = new CuboValidaciones($this->cubo);
         $validacion->validarExistenciaDeCoordenada($params['x'], $params['y'], $params['z']);
+        $validacion->validarValor($params['valor']);
         $cubo = $this->cubo->getCubo();
         $cubo[$params['x']][$params['y']][$params['z']] = $params['valor'];
         $this->cubo->setCubo($cubo);

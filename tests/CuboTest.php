@@ -71,6 +71,33 @@ class CuboTest extends TestCase
     }
 
     /**
+     * Prueba que el valor de update sea menor o igual a 10^9
+     *
+     * @expectedException App\Exceptions\CubeException
+     */
+    public function testUpdateValorNoSeaMayorAlRango()
+    {
+        $cubo = new Cubo();
+        $n = 10;
+        $cubo->inicializar($n);
+        $cubo->ejecutar('Update', ['x' => 20, 'y' => 20, 'z' => 20, 'valor' => 10000000000]);
+    }
+
+    /**
+     * Prueba que el valor de update sea menor o igual a 10^9
+     *
+     * @expectedException App\Exceptions\CubeException
+     */
+    public function testUpdateValorNoSeaMenorAlRango()
+    {
+        $cubo = new Cubo();
+        $n = 10;
+        $cubo->inicializar($n);
+        $cubo->ejecutar('Update', ['x' => 20, 'y' => 20, 'z' => 20, 'valor' => -10000000000]);
+    }
+
+
+    /**
      * Prueba el proceso de query.
      *
      * @return void
