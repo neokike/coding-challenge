@@ -14,8 +14,7 @@ app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService)
             nombre: 'Query'
         }
     ];
-
-
+    
     vm.agregarPrueba = function () {
 
         if (vm.form.pruebas.length <= 50) {
@@ -23,6 +22,7 @@ app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService)
                 size: 1,
                 operaciones: [{
                     operacion: 'Update',
+                    num: 1,
                     params: {
                         x: 1,
                         y: 1,
@@ -38,9 +38,10 @@ app.controller('appCtrl', ['toastr', 'appService', function (toastr, appService)
 
     vm.agregarOperacion = function (prueba) {
 
-        if (prueba.operaciones.length <= 1000) {
+        if (prueba.operaciones.length < 1000) {
             prueba.operaciones.push({
                 operacion: 'Update',
+                num: prueba.operaciones.length + 1,
                 params: {
                     x: 1,
                     y: 1,

@@ -17,7 +17,7 @@
                 <p><strong>Instrucciones:</strong></p>
                 <ul>
                     <li>Agregue una o más suites de prueba (No deben ser mas de 50)</li>
-                    <li>Establezca un tamaño del cubo para la prueba (n<=1000)</li>
+                    <li>Establezca un tamaño del cubo para la prueba (n<=100)</li>
                     <li>Agregue una o más operaciones (no debe sobrepasar las 1000 por prueba)</li>
                     <li>Restricciones:
                         <ul>
@@ -38,7 +38,6 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h3 ng-if="!vm.form.pruebas.length">Debe agregar una prueba</h3>
-
                         <div ng-if="vm.form.pruebas.length">
                             <div class="panel panel-default" ng-repeat="prueba in vm.form.pruebas"
                                  ng-init="pruebaIndex = $index">
@@ -57,99 +56,114 @@
                                                validator="required,number,mayorIgualA=1,menorIgualA=100"
                                                name="size" class="form-control">
                                     </div>
-                                    <div class="row" ng-repeat="operacion in prueba.operaciones track by $index">
-                                        <div class="col-xs-10 col-md-3">
-                                            <label for="">Operación @{{ $index + 1 }}</label>
-                                            <select name="operacion" class="form-control" ng-model="operacion.operacion"
-                                                    ng-options="op.nombre as op.nombre for op in vm.operaciones"
-                                                    ng-change="vm.cambioOperacion(operacion)">
-                                            </select>
-                                        </div>
-                                        <div class="col-xs-12 col-md-8" ng-if="operacion.operacion=='Update'">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-md-3">
-                                                    <label for="">X</label>
-                                                    <input class="form-control"
-                                                           name="@{{'x'+pruebaIndex+pruebaIndex+$index }}"
-                                                           type="text"
-                                                           validator="required,number,mayorIgualA=1"
-                                                           ng-model="operacion.params.x">
-                                                </div>
-                                                <div class="col-xs-12 col-md-3">
-                                                    <label for="">Y</label>
-                                                    <input class="form-control" name="@{{'y'+pruebaIndex+$index }}"
-                                                           type="text"
-                                                           validator="required,number,mayorIgualA=1"
-                                                           ng-model="operacion.params.y">
-                                                </div>
-                                                <div class="col-xs-12 col-md-3">
-                                                    <label for="">Z</label>
-                                                    <input class="form-control" name="@{{'z'+pruebaIndex+$index }}"
-                                                           type="text"
-                                                           validator="required,number,mayorIgualA=1"
-                                                           ng-model="operacion.params.z">
-                                                </div>
-                                                <div class="col-xs-12 col-md-3">
-                                                    <label for="">Valor</label>
-                                                    <input class="form-control" name="@{{'valor'+pruebaIndex+$index }}"
-                                                           type="text"
-                                                           validator="required,number,menorIgualA=1000000000,mayorIgualA=-1000000000"
-                                                           ng-model="operacion.params.valor">
+                                    <div vs-repeat="60" style="    overflow: auto;
+    max-height: 300px;
+    min-height: 59px;
+    ">
+                                        <div class="row" ng-repeat="operacion in prueba.operaciones">
+                                            <div class="col-xs-10 col-md-3">
+                                                <label for="">Operación @{{ operacion.num }}</label>
+                                                <select name="operacion" class="form-control"
+                                                        ng-model="operacion.operacion"
+                                                        ng-options="op.nombre as op.nombre for op in vm.operaciones"
+                                                        ng-change="vm.cambioOperacion(operacion)">
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-12 col-md-8" ng-if="operacion.operacion=='Update'">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-3">
+                                                        <label for="">X</label>
+                                                        <input class="form-control"
+                                                               name="@{{'x'+pruebaIndex+pruebaIndex+$index }}"
+                                                               type="text"
+                                                               validator="required,number,mayorIgualA=1"
+                                                               ng-model="operacion.params.x">
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-3">
+                                                        <label for="">Y</label>
+                                                        <input class="form-control"
+                                                               name="@{{'y'+pruebaIndex+$index }}"
+                                                               type="text"
+                                                               validator="required,number,mayorIgualA=1"
+                                                               ng-model="operacion.params.y">
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-3">
+                                                        <label for="">Z</label>
+                                                        <input class="form-control"
+                                                               name="@{{'z'+pruebaIndex+$index }}"
+                                                               type="text"
+                                                               validator="required,number,mayorIgualA=1"
+                                                               ng-model="operacion.params.z">
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-3">
+                                                        <label for="">Valor</label>
+                                                        <input class="form-control"
+                                                               name="@{{'valor'+pruebaIndex+$index }}"
+                                                               type="text"
+                                                               validator="required,number,menorIgualA=1000000000,mayorIgualA=-1000000000"
+                                                               ng-model="operacion.params.valor">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-12 col-md-8" ng-if="operacion.operacion=='Query'">
+                                            <div class="col-xs-12 col-md-8" ng-if="operacion.operacion=='Query'">
 
-                                            <div class="row">
-                                                <div class="col-xs-12 col-md-2">
-                                                    <label for="">X1</label>
-                                                    <input class="form-control" name="@{{'x'+pruebaIndex+$index }}"
-                                                           type="text"
-                                                           validator="required,number,mayorIgualA=1"
-                                                           ng-model="operacion.params.x">
-                                                </div>
-                                                <div class="col-xs-12 col-md-2">
-                                                    <label for="">Y1</label>
-                                                    <input class="form-control" name="@{{'y'+pruebaIndex+$index }}"
-                                                           type="text"
-                                                           validator="required,number,mayorIgualA=1"
-                                                           ng-model="operacion.params.y">
-                                                </div>
-                                                <div class="col-xs-12 col-md-2">
-                                                    <label for="">Z1</label>
-                                                    <input class="form-control" name="@{{'z'+pruebaIndex+$index }}"
-                                                           type="text"
-                                                           validator="required,number,mayorIgualA=1"
-                                                           ng-model="operacion.params.z">
-                                                </div>
-                                                <div class="col-xs-12 col-md-2">
-                                                    <label for="">X2</label>
-                                                    <input class="form-control" name="@{{'x2'+pruebaIndex+$index }}"
-                                                           type="text"
-                                                           validator="required,number,mayorIgualA=1"
-                                                           ng-model="operacion.params.x2">
-                                                </div>
-                                                <div class="col-xs-12 col-md-2">
-                                                    <label for="">Y2</label>
-                                                    <input class="form-control" name="@{{'y2'+pruebaIndex+$index }}"
-                                                           type="text"
-                                                           validator="required,number,mayorIgualA=1"
-                                                           ng-model="operacion.params.y2">
-                                                </div>
-                                                <div class="col-xs-12 col-md-2">
-                                                    <label for="">Z2</label>
-                                                    <input class="form-control" name="@{{'y2'+pruebaIndex+$index }}"
-                                                           type="text"
-                                                           validator="required,number,mayorIgualA=1"
-                                                           ng-model="operacion.params.z2">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-md-2">
+                                                        <label for="">X1</label>
+                                                        <input class="form-control"
+                                                               name="@{{'x'+pruebaIndex+$index }}"
+                                                               type="text"
+                                                               validator="required,number,mayorIgualA=1"
+                                                               ng-model="operacion.params.x">
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-2">
+                                                        <label for="">Y1</label>
+                                                        <input class="form-control"
+                                                               name="@{{'y'+pruebaIndex+$index }}"
+                                                               type="text"
+                                                               validator="required,number,mayorIgualA=1"
+                                                               ng-model="operacion.params.y">
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-2">
+                                                        <label for="">Z1</label>
+                                                        <input class="form-control"
+                                                               name="@{{'z'+pruebaIndex+$index }}"
+                                                               type="text"
+                                                               validator="required,number,mayorIgualA=1"
+                                                               ng-model="operacion.params.z">
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-2">
+                                                        <label for="">X2</label>
+                                                        <input class="form-control"
+                                                               name="@{{'x2'+pruebaIndex+$index }}"
+                                                               type="text"
+                                                               validator="required,number,mayorIgualA=1"
+                                                               ng-model="operacion.params.x2">
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-2">
+                                                        <label for="">Y2</label>
+                                                        <input class="form-control"
+                                                               name="@{{'y2'+pruebaIndex+$index }}"
+                                                               type="text"
+                                                               validator="required,number,mayorIgualA=1"
+                                                               ng-model="operacion.params.y2">
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-2">
+                                                        <label for="">Z2</label>
+                                                        <input class="form-control"
+                                                               name="@{{'y2'+pruebaIndex+$index }}"
+                                                               type="text"
+                                                               validator="required,number,mayorIgualA=1"
+                                                               ng-model="operacion.params.z2">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-2 col-md-1 text-center">
-                                            <button class="btn btn-danger btn-operacion"
-                                                    ng-if="$index != 0"
-                                                    ng-click="vm.borrarOperacion(prueba,operacion)"><i
-                                                        class="glyphicon glyphicon-trash"></i></button>
+                                            <div class="col-xs-2 col-md-1 text-center">
+                                                <button class="btn btn-danger btn-operacion"
+                                                        ng-if="$index != 0"
+                                                        ng-click="vm.borrarOperacion(prueba,operacion)"><i
+                                                            class="glyphicon glyphicon-trash"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -171,7 +185,8 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-block btn-success" validation-submit="cubeForm" ng-click="vm.ejecutar()" ng-disabled="vm.ejecutando">
+                <button class="btn btn-block btn-success" validation-submit="cubeForm" ng-click="vm.ejecutar()"
+                        ng-disabled="vm.ejecutando">
                     Ejecutar
                 </button>
             </form>

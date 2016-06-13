@@ -29,6 +29,11 @@ archivos de ```Javascript``` y para compilar los archivos de estilos ```Sass```
 La aplicacion se estructuró en tres archivos principales App.js que sirve para instanciar el modulo y configuración global de la aplicación,
 AppCtrl.js el cual es el controlador principal de la aplicación donde se definen las interacciones de la vista y AppService.js donde se realiza la llamada a la API.
 
+Se usaron los siguientes modulos:
+
+1. Toastr: para mostrar notificaciones.
+2. Validation: para validar el formulario a nivel de frontend.
+3. Vs-repeat: virtual scrolling para mejorar el rendimiento con grandes volumenes de datos.
      
 ##Instrucciones de instalación
 

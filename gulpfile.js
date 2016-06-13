@@ -18,6 +18,7 @@ elixir(function (mix) {
         '../../../node_modules/angular-validation/dist/angular-validation.min.js',
         '../../../node_modules/angular-validation/dist/angular-validation-rule.min.js',
         '../../../node_modules/angular-toastr/dist/angular-toastr.tpls.min.js',
+        '../../../node_modules/angular-vs-repeat/src/angular-vs-repeat.min.js',
         'app.js',
         'appCtrl.js',
         'appService.js'

@@ -1,4 +1,4 @@
-var app = angular.module('app', ['validation', 'validation.rule', 'toastr']);
+var app = angular.module('app', ['validation', 'validation.rule', 'toastr','vs-repeat']);
 
 app.config(['$validationProvider', function ($validationProvider) {
 
