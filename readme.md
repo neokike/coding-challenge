@@ -1,8 +1,8 @@
 #Cube Summation
 
 Para la implementación de este Coding Challenge se uso el framework de ```PHP``` ```Laravel``` 
-para el backend y ``angularJs``` para el frontend, A continuación se describira brevemente cada uno de los
-componentes que componen la Aplicación:
+para el backend y ```angularJs``` para el frontend, A continuación se describira brevemente cada uno de los
+componentes de la Aplicación:
 
 ##Backend
 ###Capas de la Aplicación
@@ -30,5 +30,12 @@ La aplicacion se estructuró en tres archivos principales App.js que sirve para 
 AppCtrl.js el cual es el controlador principal de la aplicación donde se definen las interacciones de la vista y AppService.js donde se realiza la llamada a la API.
 
      
-  
+##Instrucciones de instalación
+
+1. Clonar el repositorio.
+2. ejecutar el comando ```composer install```
+
+##Pruebas unitarias 
+
+Se utilizo ```phpunit``` como suite de pruebas. 
   
